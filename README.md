@@ -5,6 +5,9 @@ This repository contains a ROS package with tools for computing and applying cal
 ## Usage
 The package contains two nodes. The first computes the accelerometer calibration parameters and saves them to a YAML file, and needs to be run only once. After you have run this node to generate the YAML calibration file, the second node uses that file to apply the calibration to an uncalibrated IMU topic to produce a calibrated IMU topic.
 
+## Supported ROS 2 Version
+- ROS 2 Humble
+
 ## Nodes
 
 ### do_calib
@@ -46,3 +49,8 @@ Applies the accelerometer calibration parameters computed by the do_calib node. 
   Whether to compute gyro biases at startup and subsequently subtract them off
 - `~gyro_calib_samples` (int, default: 100) <br>
   The number of measurements to use for computing the gyro biases
+  
+## Credit
+This package is originally developed by [David Koch](https://github.com/dpkoch) for ROS 1.  
+This fork ports the package to ROS 2 Humble and is maintained by [Nathan Romany Fares](https://github.com/Nathan85001).
+

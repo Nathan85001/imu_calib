@@ -1,75 +1,86 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(imu_calib)
 
-find_package(catkin REQUIRED COMPONENTS
-  cmake_modules
-  roscpp
+# Use modern C++
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Compiler flags
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# Dependencies
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(yaml-cpp REQUIRED)
+find_package(eigen3_cmake_module REQUIRED)
+find_package(Eigen3 REQUIRED)
+find_package(ament_cmake_python REQUIRED)
+
+# Set common dependencies in a variable
+set(imu_calib_deps
+  rclcpp
   sensor_msgs
+  std_msgs
+  yaml-cpp
+  Eigen3
 )
 
-find_package(Eigen REQUIRED)
-pkg_check_modules(YAML yaml-cpp)
-
-###################################
-## catkin specific configuration ##
-###################################
-
-catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES accel_calib
-  CATKIN_DEPENDS cmake_modules roscpp sensor_msgs
-  DEPENDS Eigen yaml-cpp
-)
-
-###########
-## Build ##
-###########
-
+# Include directories (global)
 include_directories(include)
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-  ${Eigen_INCLUDE_DIRS}
-  ${YAML_INCLUDEDIR}
-)
 
-# accel_calib library
-add_library(accel_calib
+# === Build shared library from core components ===
+add_library(imu_calib_lib
+  src/apply_calib.cpp
   src/accel_calib/accel_calib.cpp
-)
-target_link_libraries(accel_calib
-  ${YAML_LIBRARIES}
+  src/do_calib.cpp  
 )
 
-# do_calib node
-add_executable(do_calib src/do_calib_node.cpp src/do_calib.cpp)
-add_dependencies(do_calib ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(do_calib
-  accel_calib
-  ${catkin_LIBRARIES}
+target_include_directories(imu_calib_lib PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
 )
 
-# apply_calib node
-add_executable(apply_calib src/apply_calib_node.cpp src/apply_calib.cpp)
-add_dependencies(apply_calib ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(apply_calib
-  accel_calib
-  ${catkin_LIBRARIES}
+target_link_libraries(imu_calib_lib yaml-cpp)
+ament_target_dependencies(imu_calib_lib ${imu_calib_deps})
+
+# === Build executables ===
+
+# apply_calib_node
+add_executable(apply_calib_node src/apply_calib_node.cpp)
+target_link_libraries(apply_calib_node imu_calib_lib)
+ament_target_dependencies(apply_calib_node ${imu_calib_deps})
+
+# do_calib_node
+add_executable(do_calib_node src/do_calib_node.cpp)
+target_link_libraries(do_calib_node imu_calib_lib)
+ament_target_dependencies(do_calib_node ${imu_calib_deps})
+
+
+
+# === Install binaries ===
+install(TARGETS
+  imu_calib_lib
+  apply_calib_node
+  do_calib_node
+
+
+  DESTINATION lib/${PROJECT_NAME}
 )
 
-#############
-## Install ##
-#############
-
-# executables and libraries
-install(TARGETS accel_calib do_calib apply_calib
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# === Install headers ===
+install(DIRECTORY include/
+  DESTINATION include/
 )
 
-# header files
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*.h"
-  PATTERN ".svn" EXCLUDE
-)
+
+# === Linting and testing ===
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+ament_package()

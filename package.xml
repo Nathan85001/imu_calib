@@ -1,24 +1,40 @@
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematype="packageFormat"?>
+<package format="3">
   <name>imu_calib</name>
-  <version>0.0.0</version>
-  <description>Package for computing and applying IMU calibrations</description>
+  <version>0.1.0</version>
+  <description>ROS2 package for computing and applying IMU calibration parameters</description>
 
-  <author email="daniel.p.koch@gmail.com">Daniel Koch</author>
-  <maintainer email="daniel.p.koch@gmail.com">Daniel Koch</maintainer>
+  <maintainer email="nassanromany74@gmail.com">Nathan Romany Fares (ROS 2 Humble Maintainer)</maintainer>
+  <author email="daniel.p.koch@gmail.com">Daniel Koch (Original ROS 1 Author)</author>
+
+
 
   <license>BSD</license>
 
-  <url type="website">http://wiki.ros.org/imu_calib</url>
-  <url type="repository">https://github.com/dpkoch/imu_calib.git</url>
+  <url type="website">https://github.com/dpkoch/imu_calib</url>
   <url type="bugtracker">https://github.com/dpkoch/imu_calib/issues</url>
+  <url type="repository">https://github.com/dpkoch/imu_calib</url>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <author email="dpkoch@gmail.com">Daniel Koch</author>
 
-  <depend>cmake_modules</depend>
-  <depend>eigen</depend>
-  <depend>roscpp</depend>
+  <!-- C++ build system -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- C++ dependencies -->
+  <depend>rclcpp</depend>
   <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
   <depend>yaml-cpp</depend>
+  <depend>eigen3_cmake_module</depend>
+  <depend>Eigen3</depend>
 
+
+  <!-- Testing tools -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>

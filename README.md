@@ -72,7 +72,8 @@ Applies the accelerometer calibration parameters computed by the do_calib node. 
 - `~gyro_calib_samples` (int, default: 100) <br>
   The number of measurements to use for computing the gyro biases
   
-## Credit
-This package is originally developed by [David Koch](https://github.com/dpkoch) for ROS 1.  
-This fork ports the package to ROS 2 Humble and is maintained by [Nathan Romany Fares](https://github.com/Nathan85001).
+## Acknowledgment
+
+Originally developed by [Daniel Koch](https://github.com/dpkoch) for ROS 1.  
+Ported to ROS 2 Humble and maintained by [Nathan Romany Fares](https://github.com/Nathan85001).
 

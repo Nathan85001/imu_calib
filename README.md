@@ -25,6 +25,7 @@ colcon build
 source install/setup.bash
 ros2 run imu_calib do_calib #Follow the instructions until the node stop working
 ros2 run imu_calib apply_calib
+```
 
 ## Usage
 The package contains two nodes. The first computes the accelerometer calibration parameters and saves them to a YAML file, and needs to be run only once. After you have run this node to generate the YAML calibration file, the second node uses that file to apply the calibration to an uncalibrated IMU topic to produce a calibrated IMU topic.

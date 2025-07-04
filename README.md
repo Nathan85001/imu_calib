@@ -1,12 +1,33 @@
-# imu_calib
+# imu_calib (ROS 2 Humble)
 
-This repository contains a ROS package with tools for computing and applying calibration parameters to IMU measurements.
+This repository contains a ROS 2 package with tools for computing and applying calibration parameters to IMU measurements.
+
+Originally developed for ROS 1 by [Daniel Koch](https://github.com/dpkoch), and now ported to ROS 2 Humble by [Nathan Romany Fares](https://github.com/Nathan85001).
+
+---
+
+## Supported ROS 2 Distribution
+
+- ROS 2 Humble Hawksbill
+
+---
+
+## Installation
+
+To build the package in your ROS 2 workspace:
+
+```bash
+cd ~/ros2_ws/src
+git clone https://github.com/Nathan85001/imu_calib.git -b ros2
+cd ..
+rosdep install --from-paths src -r -y
+colcon build
+source install/setup.bash
+ros2 run imu_calib do_calib #Follow the instructions until the node stop working
+ros2 run imu_calib apply_calib
 
 ## Usage
 The package contains two nodes. The first computes the accelerometer calibration parameters and saves them to a YAML file, and needs to be run only once. After you have run this node to generate the YAML calibration file, the second node uses that file to apply the calibration to an uncalibrated IMU topic to produce a calibrated IMU topic.
-
-## Supported ROS 2 Version
-- ROS 2 Humble
 
 ## Nodes
 

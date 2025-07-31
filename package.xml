@@ -5,14 +5,15 @@
   <version>0.1.0</version>
   <description>ROS2 package for computing and applying IMU calibration parameters</description>
 
-  <maintainer email="nassanromany74@gmail.com">Nathan Romany Fares (ROS 2 Humble Maintainer)</maintainer>
-  <author email="daniel.p.koch@gmail.com">Daniel Koch (Original ROS 1 Author)</author>
 
   <license>BSD-3-Clause</license>
 
   <url type="website">https://github.com/dpkoch/imu_calib</url>
   <url type="bugtracker">https://github.com/dpkoch/imu_calib/issues</url>
   <url type="repository">https://github.com/dpkoch/imu_calib</url>
+
+  <maintainer email="nassanromany74@gmail.com">Nathan Romany Fares (ROS 2 Humble Maintainer)</maintainer>
+  <author email="daniel.p.koch@gmail.com">Daniel Koch (Original ROS 1 Author)</author>
 
   <!-- C++ build system -->
   <buildtool_depend>ament_cmake</buildtool_depend>
@@ -22,8 +23,11 @@
   <depend>sensor_msgs</depend>
   <depend>std_msgs</depend>
   <depend>yaml-cpp</depend>
-  <build_depend>eigen</build_depend>
-  <exec_depend>eigen</exec_depend>
+  <depend>eigen3_cmake_module</depend>
+
+  <!-- Eigen3 core library -->
+  <build_depend>eigen3</build_depend>
+  <build_export_depend>eigen3</build_export_depend>
 
   <!-- Testing tools -->
   <test_depend>ament_lint_auto</test_depend>
@@ -33,4 +37,3 @@
     <build_type>ament_cmake</build_type>
   </export>
 </package>
-

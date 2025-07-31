@@ -83,4 +83,8 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+# Export dependencies used in public headers
+ament_export_dependencies(eigen3_cmake_module)
+ament_export_dependencies(Eigen3)
+
 ament_package()

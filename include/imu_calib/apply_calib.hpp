@@ -64,14 +64,14 @@ private:
   int gyro_calib_samples_;
 
   // Calibration data
-  Eigen::Vector3d accel_bias_;
-  Eigen::Matrix3d accel_scale_;
-  Eigen::Vector3d gyro_bias_;
-
-  // Gyroscope calibration state
-  bool gyro_calibrated_;
   int gyro_sample_count_;
   Eigen::Vector3d gyro_sum_;
+  Eigen::Vector3d gyro_bias_;
+  Eigen::Matrix3d accel_scale_;
+  Eigen::Vector3d accel_bias_;  
+  bool gyro_calibrated_;
+
+
 
   // Callbacks and utilities
   void rawImuCallback(const sensor_msgs::msg::Imu::SharedPtr msg);

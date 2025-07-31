@@ -17,7 +17,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(eigen3_cmake_module REQUIRED)
-find_package(Eigen3 REQUIRED)
+find_package(Eigen3 REQUIRED)  
 find_package(ament_cmake_python REQUIRED)
 
 # Set common dependencies in a variable
@@ -30,7 +30,7 @@ set(imu_calib_deps
 )
 
 # Include directories (global)
-include_directories(include)
+#include_directories(include)
 
 # === Build shared library from core components ===
 add_library(imu_calib_lib

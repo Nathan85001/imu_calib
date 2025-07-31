@@ -23,11 +23,16 @@
   <depend>sensor_msgs</depend>
   <depend>std_msgs</depend>
   <depend>yaml-cpp</depend>
-  <depend>eigen3_cmake_module</depend>
+  
+  <!-- Eigen support -->
+  <build_depend>eigen3_cmake_module</build_depend>
+  <build_depend>eigen</build_depend>
 
-  <!-- Eigen3 core library -->
-  <build_depend>eigen3</build_depend>
-  <build_export_depend>eigen3</build_export_depend>
+  <build_export_depend>eigen3_cmake_module</build_export_depend>
+  <build_export_depend>eigen</build_export_depend>
+  
+  <exec_depend>eigen</exec_depend>	
+
 
   <!-- Testing tools -->
   <test_depend>ament_lint_auto</test_depend>
